@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Algoritma — Regula Falsi</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="../css/nav.css"/>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand">
+      <span class="nav-logo">∫</span>
+      <span class="nav-title">Regula Falsi</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="../index.html" class="nav-link">Beranda</a></li>
+      <li><a href="teori.html" class="nav-link">Teori</a></li>
+      <li><a href="algoritma.html" class="nav-link active">Algoritma</a></li>
+      <li><a href="kalkulator.html" class="nav-link nav-cta">Kalkulator</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle">☰</button>
+  </nav>
+
+  <section class="page-hero">
+    <h1>Algoritma &amp; Pseudocode</h1>
+    <p>Langkah-langkah lengkap implementasi metode Regula Falsi beserta flowchart dan kode.</p>
+  </section>
+
+  <div class="page-content">
+
+    <h2>1. Langkah-Langkah Algoritma</h2>
+    <ol class="steps-list">
+      <li>
+        <div>
+          <strong>Definisikan fungsi f(x)</strong>
+          <p>Masukkan persamaan f(x) = 0 yang akan dicari akarnya.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Tentukan interval awal [a, b]</strong>
+          <p>Pilih a dan b sedemikian sehingga f(a) · f(b) &lt; 0 (tanda berlawanan).</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Tentukan toleransi ε dan iterasi maksimum</strong>
+          <p>Misalnya ε = 0.0001 dan maks iterasi = 100.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Hitung titik pendekatan xr</strong>
+          <p>Gunakan formula: xr = b − f(b)·(b−a) / (f(b)−f(a))</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Evaluasi f(xr)</strong>
+          <p>Hitung nilai fungsi pada titik xr yang baru ditemukan.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Perbarui interval</strong>
+          <p>Jika f(a)·f(xr) &lt; 0 → b = xr, jika tidak → a = xr</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Cek kriteria berhenti</strong>
+          <p>Jika |f(xr)| ≤ ε atau error relatif ≤ ε, hentikan. Jika tidak, kembali ke langkah 4.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <strong>Output hasil</strong>
+          <p>Tampilkan xr sebagai aproksimasi akar beserta jumlah iterasi dan error.</p>
+        </div>
+      </li>
+    </ol>
+
+    <h2>2. Flowchart</h2>
+    <div class="flowchart">
+      <div class="flow-node start-end">MULAI</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-node process">Input: f(x), a, b, ε, maxIter</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-node decision-box">Cek: f(a)·f(b) &lt; 0 ?</div>
+      <div class="flow-arrow">↓ Ya</div>
+      <div class="flow-node process">xr = b − f(b)·(b−a) / (f(b)−f(a))</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-node process">Hitung f(xr), error relatif</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-node decision-box">|f(xr)| ≤ ε atau iter ≥ maxIter ?</div>
+      <div class="flow-arrow">↓ Tidak</div>
+      <div class="flow-node decision-box">f(a)·f(xr) &lt; 0 ?</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-node process">Ya: b = xr &nbsp;&nbsp;&nbsp; Tidak: a = xr</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-node process">iter = iter + 1, ulangi</div>
+      <div class="flow-arrow">↓ Ya (berhenti)</div>
+      <div class="flow-node process">Output: xr, f(xr), iterasi, error</div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-node start-end">SELESAI</div>
+    </div>
+
+    <h2>3. Pseudocode</h2>
+    <div class="code-block">
+      <pre><code>FUNCTION regulaFalsi(f, a, b, epsilon, maxIter):
+    IF f(a) * f(b) >= 0 THEN
+        RETURN "Error: f(a)·f(b) harus < 0"
+
+    iter = 0
+    xr_lama = a
+
+    WHILE iter < maxIter DO
+        fa = f(a)
+        fb = f(b)
+
+        // Hitung titik perpotongan sekanta dengan sumbu-x
+        xr = b - (fb * (b - a)) / (fb - fa)
+        fxr = f(xr)
+
+        // Hitung error relatif (kecuali iterasi pertama)
+        IF iter > 0 THEN
+            error = |xr - xr_lama| / |xr| * 100   // dalam %
+
+        // Cetak baris tabel iterasi
+        PRINT(iter + 1, a, b, xr, fxr, error)
+
+        // Cek kriteria berhenti
+        IF |fxr| <= epsilon THEN
+            BREAK
+
+        // Perbarui interval
+        IF f(a) * fxr < 0 THEN
+            b = xr
+        ELSE
+            a = xr
+
+        xr_lama = xr
+        iter = iter + 1
+
+    RETURN xr
+END FUNCTION</code></pre>
+    </div>
+
+    <h2>4. Implementasi Python</h2>
+    <div class="code-block">
+      <pre><code># regulaFalsi.py
+# Implementasi Metode Regula Falsi
+
+def regula_falsi(f, a, b, epsilon=1e-6, max_iter=100):
+    """
+    Parameter:
+        f        : fungsi f(x)
+        a, b     : batas interval (f(a)*f(b) < 0)
+        epsilon  : toleransi error
+        max_iter : iterasi maksimum
+    Return:
+        dict berisi akar dan data iterasi
+    """
+    if f(a) * f(b) >= 0:
+        raise ValueError("f(a)·f(b) harus bernilai negatif")
+
+    results = []
+    xr = a
+    xr_prev = a
+
+    for i in range(max_iter):
+        fa, fb = f(a), f(b)
+        xr_prev = xr
+
+        # Formula Regula Falsi
+        xr = b - (fb * (b - a)) / (fb - fa)
+        fxr = f(xr)
+
+        err_rel = None if i == 0 else abs((xr - xr_prev) / xr) * 100
+
+        results.append({
+            'iter': i + 1, 'a': a, 'b': b,
+            'xr': xr, 'fxr': fxr, 'err_rel': err_rel
+        })
+
+        if abs(fxr) <= epsilon:
+            break
+
+        if f(a) * fxr < 0:
+            b = xr
+        else:
+            a = xr
+
+    return {'root': xr, 'iterations': results}
+
+
+# Contoh pemakaian:
+import math
+
+f = lambda x: x**3 - 3*x - 1
+hasil = regula_falsi(f, a=1, b=3, epsilon=1e-6)
+print(f"Akar: {hasil['root']:.8f}")
+      </code></pre>
+    </div>
+
+    <div style="margin-top: 3rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+      <a href="kalkulator.html" class="btn btn-primary">Lanjut: Kalkulator</a>
+      <a href="teori.html" class="btn btn-outline">Teori</a>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>Tugas Metode Numerik · Teknik Informatika · 2024</p>
+  </footer>
+
+  <script src="../js/nav.js"></script>
+</body>
+</html>

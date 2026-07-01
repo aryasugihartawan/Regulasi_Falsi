@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Metode Regula Falsi — Metode Numerik</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/nav.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand">
+      <span class="nav-logo">∫</span>
+      <span class="nav-title">Regula Falsi</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html" class="nav-link active">Beranda</a></li>
+      <li><a href="pages/teori.html" class="nav-link">Teori</a></li>
+      <li><a href="pages/algoritma.html" class="nav-link">Algoritma</a></li>
+      <li><a href="pages/kalkulator.html" class="nav-link nav-cta">Kalkulator</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle">☰</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Metode Numerik · Teknik Informatika</div>
+      <h1 class="hero-title">
+        Metode<br/><span class="hero-accent">Regula Falsi</span>
+      </h1>
+      <p class="hero-sub">
+        Metode pencarian akar persamaan non-linear dengan pendekatan interpolasi linear 
+        antara dua titik yang mengapit akar — lebih cepat dan lebih cerdas dari biseksi biasa.
+      </p>
+      <div class="hero-actions">
+        <a href="pages/teori.html" class="btn btn-primary">Pelajari Teori</a>
+        <a href="pages/kalkulator.html" class="btn btn-outline">Buka Kalkulator</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <canvas id="heroCanvas" width="480" height="340"></canvas>
+    </div>
+  </section>
+
+  <!-- OVERVIEW CARDS -->
+  <section class="section-cards">
+    <div class="cards-header">
+      <h2>Apa yang akan kamu pelajari?</h2>
+      <p>Navigasi melalui setiap bagian secara berurutan untuk pemahaman penuh.</p>
+    </div>
+    <div class="cards-grid">
+      <a href="pages/teori.html" class="card">
+        <div class="card-icon"></div>
+        <h3>Teori Dasar</h3>
+        <p>Konsep dasar metode regula falsi, asal-usul, dan perbandingan dengan metode biseksi.</p>
+        <span class="card-arrow"></span>
+      </a>
+      <a href="pages/algoritma.html" class="card">
+        <div class="card-icon"></div>
+        <h3>Algoritma &amp; Pseudocode</h3>
+        <p>Langkah-langkah iterasi, pseudocode, dan flowchart metode secara lengkap.</p>
+        <span class="card-arrow"></span>
+      </a>
+      <a href="pages/kalkulator.html" class="card card-highlight">
+        <div class="card-icon"></div>
+        <h3>Kalkulator Interaktif</h3>
+        <p>Input fungsi dan interval, lihat grafik real-time, dan tabel iterasi otomatis.</p>
+        <span class="card-arrow"></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FORMULA HIGHLIGHT -->
+  <section class="section-formula">
+    <div class="formula-content">
+      <h2>RUMUS REGULA FALSI</h2>
+      <p>Titik perpotongan garis lurus antara f(a) dan f(b) dengan sumbu-x:</p>
+      <div class="formula-box">
+        <span class="formula-math">
+          c<sub></sub> = b − <span class="frac"><span class="num">f(b) · (b − a)</span><span class="denom">f(b) − f(a)</span></span>
+        </span>
+      </div>
+      <p class="formula-note">Di mana <em>a</em> dan <em>b</em> adalah batas interval yang mengapit akar, dengan f(a)·f(b) &lt; 0</p>
+    </div>
+  </section>
+
+  <section class="section-team">
+    <div class="section-header">
+      <h2>Anggota Kelompok</h2>
+      <p>Nama dan NIM anggota tim yang mengerjakan tugas ini.</p>
+    </div>
+    <div class="team-list">
+      <div class="team-card">
+        <strong>I Nyoman Arya Mas Sugiarthawan</strong>
+        <span>202431108</span>
+      </div>
+      <div class="team-card">
+        <strong>Andi Fhaika Fiantika A.T</strong>
+        <span>202431142</span>
+      </div>
+      <div class="team-card">
+        <strong>Nabila Ramadani</strong>
+        <span>202431155</span>
+      </div>
+      <div class="team-card">
+        <strong>Maya Dwi Apriyani</strong>
+        <span>202431159</span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Tugas Metode Numerik · Teknik Informatika · 2024</p>
+  </footer>
+
+  <script src="js/nav.js"></script>
+  <script src="js/hero-canvas.js"></script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Teori — Regula Falsi</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="../css/nav.css"/>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand">
+      <span class="nav-logo">∫</span>
+      <span class="nav-title">Regula Falsi</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="../index.html" class="nav-link">Beranda</a></li>
+      <li><a href="teori.html" class="nav-link active">Teori</a></li>
+      <li><a href="algoritma.html" class="nav-link">Algoritma</a></li>
+      <li><a href="kalkulator.html" class="nav-link nav-cta">Kalkulator</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle">☰</button>
+  </nav>
+
+  <section class="page-hero">
+    <h1>Teori Metode Regula Falsi</h1>
+    <p>Pemahaman konseptual tentang metode pencarian akar dengan interpolasi linear.</p>
+  </section>
+
+  <div class="page-content">
+
+    <h2>1. Pengertian</h2>
+    <p>
+      Metode <strong>Regula Falsi</strong> (juga dikenal sebagai metode <em>False Position</em> atau 
+      <em>Linear Interpolation</em>) adalah salah satu metode numerik untuk mencari akar dari persamaan 
+      non-linear f(x) = 0. Metode ini merupakan penyempurnaan dari metode Biseksi, di mana titik 
+      baru tidak diambil dari titik tengah interval, melainkan dari perpotongan garis lurus yang 
+      menghubungkan dua titik ujung dengan sumbu-x.
+    </p>
+
+    <div class="info-box">
+      <p>
+        <strong>Definisi:</strong> Metode Regula Falsi menggunakan interpolasi linear antara dua titik 
+        f(a) dan f(b) untuk memperkirakan posisi akar, menghasilkan konvergensi yang lebih cepat 
+        dibandingkan metode biseksi pada banyak kasus.
+      </p>
+    </div>
+
+    <h2>2. Sejarah dan Asal Usul</h2>
+    <p>
+      Istilah <em>Regula Falsi</em> berasal dari bahasa Latin yang berarti <strong>"aturan yang salah"</strong> 
+      atau <strong>"aturan posisi palsu"</strong>. Metode ini telah digunakan sejak zaman kuno, 
+      bahkan sebelum kalkulus ditemukan, oleh para matematikawan Mesir dan Babilonia sekitar 
+      1800 SM untuk memecahkan persamaan linear sederhana.
+    </p>
+    <p>
+      Dalam bentuk modernnya untuk persamaan non-linear, metode ini dikembangkan lebih lanjut 
+      pada abad ke-17 hingga ke-19 seiring berkembangnya analisis numerik sebagai bidang ilmu tersendiri.
+    </p>
+
+    <h2>3. Dasar Matematika</h2>
+    <p>
+      Misalkan diketahui fungsi f(x) yang kontinu pada interval [a, b], di mana f(a) dan f(b) 
+      memiliki tanda yang berlawanan, yaitu:
+    </p>
+
+    <div class="formula-box" style="display:block; max-width:400px; margin: 1.5rem 0;">
+      <span class="formula-math">f(a) · f(b) &lt; 0</span>
+    </div>
+
+    <p>
+      Berdasarkan <strong>Teorema Nilai Antara (Intermediate Value Theorem)</strong>, terdapat 
+      setidaknya satu akar r ∈ (a, b) sedemikian sehingga f(r) = 0.
+    </p>
+
+    <p>
+      Ide utama Regula Falsi adalah menggambar garis lurus (sekanta) yang menghubungkan titik 
+      (a, f(a)) dan (b, f(b)), kemudian mencari perpotongannya dengan sumbu-x sebagai perkiraan 
+      akar berikutnya:
+    </p>
+
+    <div class="formula-box" style="display:block; margin: 1.5rem 0;">
+      <span class="formula-math">
+        x<sub>r</sub> = b − <span class="frac">
+          <span class="num">f(b) · (b − a)</span>
+          <span class="denom">f(b) − f(a)</span>
+        </span>
+      </span>
+    </div>
+
+    <h2>4. Aturan Pembaruan Interval</h2>
+    <p>
+      Setelah mendapatkan xr, kita tentukan sub-interval mana yang mengandung akar:
+    </p>
+    <ul>
+      <li>Jika <strong>f(a) · f(xr) &lt; 0</strong> → akar berada di [a, xr], set <em>b = xr</em></li>
+      <li>Jika <strong>f(b) · f(xr) &lt; 0</strong> → akar berada di [xr, b], set <em>a = xr</em></li>
+      <li>Jika <strong>f(xr) = 0</strong> → xr adalah akar sejati, iterasi berhenti</li>
+    </ul>
+
+    <h2>5. Perbandingan dengan Metode Biseksi</h2>
+
+    <div class="iter-table-wrap">
+      <table class="iter-table">
+        <thead>
+          <tr>
+            <th>Aspek</th>
+            <th>Biseksi</th>
+            <th>Regula Falsi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Titik baru</td><td>Titik tengah (a+b)/2</td><td>Perpotongan sekanta</td></tr>
+          <tr><td>Konvergensi</td><td>Linear (lambat)</td><td>Lebih cepat (biasanya)</td></tr>
+          <tr><td>Jaminan</td><td>Pasti konvergen</td><td>Pasti konvergen (bracket)</td></tr>
+          <tr><td>Kelemahan</td><td>Tidak memanfaatkan nilai f</td><td>Bisa lambat untuk kurva cembung</td></tr>
+          <tr><td>Syarat awal</td><td>f(a)·f(b) &lt; 0</td><td>f(a)·f(b) &lt; 0</td></tr>
+          <tr><td>Kategori</td><td>Bracketing method</td><td>Bracketing method</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>6. Kriteria Konvergensi (Stopping Criteria)</h2>
+    <p>Iterasi dihentikan apabila salah satu kondisi terpenuhi:</p>
+    <ul>
+      <li><strong>|f(xr)| ≤ ε</strong> — nilai fungsi cukup mendekati nol</li>
+      <li><strong>|xr(baru) − xr(lama)| / |xr(baru)| ≤ ε</strong> — error relatif cukup kecil</li>
+      <li>Jumlah iterasi maksimum tercapai</li>
+    </ul>
+
+    <div class="info-box success">
+      <p>
+        <strong>Keunggulan:</strong> Regula Falsi selalu mengapit akar (bounded/bracketed), 
+        sehingga dijamin akan konvergen ke akar yang benar, tidak seperti metode Newton-Raphson 
+        yang bisa divergen jika tebakan awal buruk.
+      </p>
+    </div>
+
+    <div class="info-box warning">
+      <p>
+        <strong>Perhatian:</strong> Pada fungsi dengan kelengkungan tinggi (konveks/konkav kuat), 
+        salah satu ujung interval bisa "terjebak" tidak bergerak selama banyak iterasi — ini dikenal 
+        sebagai masalah <em>stagnation</em>. Modifikasi seperti Metode Illinois dapat mengatasinya.
+      </p>
+    </div>
+
+    <div style="margin-top: 3rem; display: flex; gap: 1rem;">
+      <a href="algoritma.html" class="btn btn-primary">Lanjut: Algoritma</a>
+      <a href="../index.html" class="btn btn-outline">Beranda</a>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>Tugas Metode Numerik · Teknik Informatika · 2024</p>
+  </footer>
+
+  <script src="../js/nav.js"></script>
+</body>
+</html>

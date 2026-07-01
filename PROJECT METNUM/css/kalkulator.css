@@ -1,0 +1,261 @@
+/* ============================================================
+   kalkulator.css — Layout and styles for the calculator page
+   ============================================================ */
+
+/* ---------- Layout ---------- */
+.calc-layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  min-height: 100vh;
+  padding-top: 64px; /* navbar height */
+}
+
+.calc-panel {
+  background: var(--bg-card);
+  border-right: 1px solid var(--border);
+  padding: 2rem 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.panel-header h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.2rem; }
+.panel-header p  { color: var(--text-muted); font-size: 0.85rem; }
+
+.calc-main {
+  padding: 1.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  overflow-y: auto;
+}
+
+/* ---------- Form elements ---------- */
+.form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.form-group label { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+.form-input {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 0.95rem;
+  padding: 0.6rem 0.9rem;
+  transition: border-color 0.18s;
+  width: 100%;
+}
+
+.form-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px rgba(166,120,75,0.15); }
+.form-input.mono { font-family: var(--mono); }
+
+.fn-preview {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--accent);
+  padding: 0.3rem 0;
+  min-height: 1.4em;
+}
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+/* ---------- Presets ---------- */
+.presets { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+.preset-btn {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.preset-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(166,120,75,0.08); }
+.preset-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(166,120,75,0.14); }
+
+/* ---------- Full-width buttons ---------- */
+.btn-full { width: 100%; text-align: center; padding: 0.75rem; }
+
+/* ---------- Result & Error boxes ---------- */
+.result-box {
+  background: rgba(123,141,113,0.08);
+  border: 1px solid rgba(123,141,113,0.18);
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.88rem;
+}
+
+.result-row span { color: var(--text-muted); }
+
+.result-row strong {
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  color: var(--accent3);
+}
+
+.error-box {
+  background: rgba(224,102,102,0.08);
+  border: 1px solid rgba(224,102,102,0.18);
+  border-radius: var(--radius-sm);
+  padding: 0.9rem 1.1rem;
+  font-size: 0.85rem;
+  color: #7a3f3f;
+  line-height: 1.5;
+}
+
+/* ---------- Graph section ---------- */
+.graph-section {
+  background: rgba(255,245,236,0.95);
+  border: 1px solid rgba(166,120,75,0.22);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.85);
+}
+
+.section-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(166,120,75,0.22);
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.section-title-row h3 { font-size: 1rem; font-weight: 600; color: var(--accent); }
+
+.canvas-wrap {
+  position: relative;
+  min-height: 200px;
+}
+
+#graphCanvas {
+  display: block;
+  width: 100%;
+}
+
+.canvas-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  pointer-events: none;
+}
+
+.canvas-placeholder p { color: var(--text-muted); font-size: 0.95rem; }
+
+/* ---------- Iteration controls ---------- */
+.iter-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+
+.ic-btn {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 0.95rem;
+  min-width: 44px;
+  padding: 0.55rem 0.85rem;
+  height: auto;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.ic-btn:hover { border-color: var(--accent); color: var(--accent); }
+.ic-all { font-size: 0.85rem; padding: 0.55rem 1rem; }
+
+/* ---------- Table section ---------- */
+.table-section {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+.table-section h3 { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; }
+
+.iter-table-wrap {
+  overflow-x: auto;
+}
+
+.iter-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.iter-table th,
+.iter-table td {
+  padding: 0.8rem 0.85rem;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.iter-table th {
+  background: rgba(166,120,75,0.08);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.iter-table tr:nth-child(even) {
+  background: rgba(255,255,255,0.55);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .calc-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .calc-panel {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .iter-controls {
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .result-row {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
+  .result-row strong {
+    text-align: left;
+  }
+
+  .calc-main { padding: 1.25rem 1rem; }
+}

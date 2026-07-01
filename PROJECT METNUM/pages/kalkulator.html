@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kalkulator — Regula Falsi</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="../css/nav.css"/>
+  <link rel="stylesheet" href="../css/kalkulator.css"/>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand">
+      <span class="nav-logo">∫</span>
+      <span class="nav-title">Regula Falsi</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="../index.html" class="nav-link">Beranda</a></li>
+      <li><a href="teori.html" class="nav-link">Teori</a></li>
+      <li><a href="algoritma.html" class="nav-link">Algoritma</a></li>
+      <li><a href="kalkulator.html" class="nav-link nav-cta active">Kalkulator</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle">☰</button>
+  </nav>
+
+  <div class="calc-layout">
+
+    <!-- LEFT PANEL: Input -->
+    <aside class="calc-panel" id="calcPanel">
+      <div class="panel-header">
+        <h2>Kalkulator</h2>
+        <p>Input fungsi dan parameter iterasi</p>
+      </div>
+
+      <!-- Function input -->
+      <div class="form-group">
+        <label>f(x) =</label>
+        <input type="text" id="fnInput" class="form-input mono" 
+               placeholder="x^3 - 3*x - 1" value="x^3 - 3*x - 1" autocomplete="off"/>
+        <div class="fn-preview" id="fnPreview">f(x) = x³ − 3x − 1</div>
+      </div>
+
+      <!-- Quick presets -->
+      <div class="form-group">
+        <label>Contoh fungsi:</label>
+        <div class="presets">
+          <button class="preset-btn" data-fn="x^3 - 3*x - 1" data-a="1" data-b="3">x³−3x−1</button>
+          <button class="preset-btn" data-fn="cos(x) - x" data-a="0" data-b="1.6">cos(x)−x</button>
+          <button class="preset-btn" data-fn="exp(x) - 4*x" data-a="0" data-b="1">eˣ−4x</button>
+          <button class="preset-btn" data-fn="x^2 - 2" data-a="1" data-b="2">x²−2</button>
+          <button class="preset-btn" data-fn="sin(x) - x/2" data-a="1" data-b="3">sin(x)−x/2</button>
+          <button class="preset-btn" data-fn="x^3 - x - 2" data-a="1" data-b="2">x³−x−2</button>
+        </div>
+      </div>
+
+      <!-- Interval -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>Batas kiri a</label>
+          <input type="number" id="aInput" class="form-input" value="1" step="any"/>
+        </div>
+        <div class="form-group">
+          <label>Batas kanan b</label>
+          <input type="number" id="bInput" class="form-input" value="3" step="any"/>
+        </div>
+      </div>
+
+      <!-- Tolerance & max iter -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>Toleransi ε</label>
+          <select id="epsilonInput" class="form-input">
+            <option value="1e-3">10⁻³</option>
+            <option value="1e-4">10⁻⁴</option>
+            <option value="1e-5">10⁻⁵</option>
+            <option value="1e-6" selected>10⁻⁶</option>
+            <option value="1e-7">10⁻⁷</option>
+            <option value="1e-8">10⁻⁸</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Maks. Iterasi</label>
+          <input type="number" id="maxIterInput" class="form-input" value="100" min="1" max="500"/>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <button class="btn btn-primary btn-full" id="runBtn">Hitung</button>
+      <button class="btn btn-outline btn-full" id="resetBtn">Reset</button>
+
+      <!-- Result summary -->
+      <div class="result-box" id="resultBox" style="display:none;">
+        <div class="result-row"><span>Akar (xr)</span><strong id="resPivot">—</strong></div>
+        <div class="result-row"><span>f(xr)</span><strong id="resFxr">—</strong></div>
+        <div class="result-row"><span>Iterasi</span><strong id="resIter">—</strong></div>
+        <div class="result-row"><span>Error relatif</span><strong id="resErr">—</strong></div>
+        <div class="result-row"><span>Status</span><strong id="resStatus">—</strong></div>
+      </div>
+
+      <div class="error-box" id="errorBox" style="display:none;"></div>
+    </aside>
+
+    <!-- RIGHT PANEL: Graph + Table -->
+    <main class="calc-main">
+
+      <!-- Graph -->
+      <section class="graph-section">
+        <div class="section-title-row">
+          <h3>Grafik f(x)</h3>
+          <div class="iter-controls" id="iterControls" style="display:none;">
+            <button class="ic-btn" id="icPrev">Sebelumnya</button>
+            <span id="icLabel">Iterasi 1</span>
+            <button class="ic-btn" id="icNext">Berikutnya</button>
+            <button class="ic-btn ic-all" id="icAll">Semua</button>
+          </div>
+        </div>
+        <div class="canvas-wrap">
+          <canvas id="graphCanvas"></canvas>
+          <div class="canvas-placeholder" id="canvasPlaceholder">
+            <p>Masukkan fungsi dan klik <strong>Hitung</strong> untuk melihat grafik.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Iteration Table -->
+      <section class="table-section" id="tableSection" style="display:none;">
+        <h3>Tabel Iterasi</h3>
+        <div class="iter-table-wrap">
+          <table class="iter-table" id="iterTable">
+            <thead>
+              <tr>
+                <th>Iter</th><th>a</th><th>b</th>
+                <th>xr</th><th>f(a)</th><th>f(xr)</th>
+                <th>|b − a|</th><th>Error relatif</th>
+              </tr>
+            </thead>
+            <tbody id="iterTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="footer">
+    <p>Tugas Metode Numerik · Teknik Informatika · 2024</p>
+  </footer>
+
+  <script src="../js/nav.js"></script>
+  <script src="../js/regulaFalsi.js"></script>
+  <script src="../js/graph.js"></script>
+  <script src="../js/kalkulator.js"></script>
+</body>
+</html>
